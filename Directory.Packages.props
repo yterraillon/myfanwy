@@ -1,0 +1,48 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Blazor & UI -->
+    <PackageVersion Include="Blazor.Bootstrap" Version="3.0.0-preview.1" />
+    <PackageVersion Include="Tailwind.Extensions.AspNetCore" Version="1.1.0-beta1" />
+    
+    <!-- ASP.NET Core -->
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.2.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+    
+    <!-- MediatR -->
+    <PackageVersion Include="MediatR" Version="12.4.1" />
+    <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+    
+    <!-- Microsoft Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
+    
+    <!-- Azure -->
+    <PackageVersion Include="Azure.Storage.Blobs" Version="12.23.0" />
+    
+    <!-- Data & Serialization -->
+    <PackageVersion Include="AutoMapper" Version="13.0.1" />
+    <PackageVersion Include="LiteDB" Version="5.0.19" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    
+    <!-- Scheduling -->
+    <PackageVersion Include="Quartz" Version="3.11.0" />
+    <PackageVersion Include="Quartz.Extensions.DependencyInjection" Version="3.11.0" />
+    <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.11.0" />
+    
+    <!-- Utilities -->
+    <PackageVersion Include="HtmlAgilityPack" Version="1.11.72" />
+    <PackageVersion Include="System.ServiceModel.Syndication" Version="10.0.0" />
+  </ItemGroup>
+</Project>
+

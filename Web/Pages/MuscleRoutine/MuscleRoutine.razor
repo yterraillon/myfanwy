@@ -1,0 +1,38 @@
+﻿@page "/muscle-routine"
+
+@using global::MuscleRoutine.Application.Features
+@using global::MuscleRoutine.Application.Models
+@using MediatR
+@inject IMediator Mediator
+
+<h2>MuscleRoutine</h2>
+<div>
+    <h3>Routine du jour</h3>
+    <ul>
+        <li>Echauffement</li>
+        @foreach (var exercice in _exercices)
+        {
+            <li>@exercice.Name</li>
+        }
+    </ul>
+    
+    <div><Button Color="ButtonColor.Primary" class="data-nav" @onclick="GenerateNewRoutine"> Générer une autre routine </Button></div>
+</div>
+
+@code {
+    private List<Exercice> _exercices = [];
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Mediator.Send(new GetRoutine.Request());
+        _exercices = response.Routine;
+        StateHasChanged();
+    }
+    
+    protected async Task GenerateNewRoutine(EventArgs args)
+    {
+        var response = await Mediator.Send(new BuildRoutine.Request());
+        _exercices = response.Routine;
+        StateHasChanged();
+    }
+}

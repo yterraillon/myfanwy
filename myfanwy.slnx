@@ -1,0 +1,37 @@
+<Solution>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="BuildingBlocks/Application/Application.csproj" />
+    <Project Path="BuildingBlocks/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Dependencies/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/Modules/" />
+  <Folder Name="/Modules/CineRoulette/">
+    <Project Path="Modules/CineRoulette/CineRoulette.Function/CineRoulette.Function.csproj" />
+  </Folder>
+  <Folder Name="/Modules/ComicGrabber/">
+    <Project Path="Modules/ComicGrabber/ComicGrabber.Application/ComicGrabber.Application.csproj" />
+    <Project Path="Modules/ComicGrabber/ComicGrabber.Infrastructure/ComicGrabber.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Modules/EnBref/">
+    <File Path="Modules/EnBref/Readme.Md" />
+    <Project Path="Modules/EnBref/EnBref.Application/EnBref.Application.csproj" />
+    <Project Path="Modules/EnBref/EnBref.Infrastructure/EnBref.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Modules/MealPicker/">
+    <Project Path="Modules/MealPicker/MealPicker.Application/MealPicker.Application.csproj" />
+    <Project Path="Modules/MealPicker/MealPicker.Infrastructure/MealPicker.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Modules/MuscleRoutine/">
+    <Project Path="Modules/MuscleRoutine/MuscleRoutine.Application/MuscleRoutine.Application.csproj" />
+    <Project Path="Modules/MuscleRoutine/MuscleRoutine.Infrastructure/MuscleRoutine.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Thermo/">
+    <File Path="Modules/Thermo/Readme.md" />
+    <Project Path="Modules/Thermo/Thermo.Application/Thermo.Application.csproj" />
+    <Project Path="Modules/Thermo/Thermo.Infrastructure/Thermo.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="Api/Api.csproj" />
+  <Project Path="Web/Web.csproj" />
+</Solution>

@@ -1,0 +1,56 @@
+﻿@using global::Thermo.Application.Models
+@using Web.Helpers
+<div>
+    <BarChart @ref="_airQualityBarChart"  />
+</div>
+
+@code {
+    [Parameter] 
+    public GetAllMeasurements.MeasurementsViewModel Measurements { get; set; } = default!;
+    
+    private BarChart _airQualityBarChart = default!;
+    private BarChartOptions _airQualityBarChartOptions = default!;
+    private ChartData _airQualityChartData = default!;
+        
+    protected override Task OnInitializedAsync()
+    {
+        SetupAirQualityChart(Measurements);
+        return Task.CompletedTask;
+    }
+    
+    protected override Task OnParametersSetAsync()
+    {
+        SetupAirQualityChart(Measurements);
+        return Task.CompletedTask;
+    }
+    
+    private void SetupAirQualityChart(GetAllMeasurements.MeasurementsViewModel measurements)
+    {
+        var datasets = new List<IChartDataset>();
+        var colorIndex = ChartHelper.ColorsPalette.Lightseagreen;
+        
+        foreach (var room in Rooms.AllRooms)
+        {
+            var dataset = ChartHelper.CreateBarChartDataset(GetAirQualityFromRoom(room, measurements), colorIndex);
+            datasets.Add(dataset);
+            colorIndex++;
+        }
+
+        _airQualityChartData = new ChartData {Labels = measurements.Labels, Datasets = datasets };
+        _airQualityBarChartOptions = ChartHelper.CreateDefaultBarChartOptions("Qualité de l'air", "Date", "Qualité de l'air");
+    }    
+    
+    private static List<double> GetAirQualityFromRoom(string room, GetAllMeasurements.MeasurementsViewModel measurements) => 
+        measurements.AirQuality.Where(m => m.Room == room).Select(m => m.AirQuality).ToList();
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _airQualityBarChart.InitializeAsync(_airQualityChartData, _airQualityBarChartOptions);
+        }
+        
+        await _airQualityBarChart.UpdateAsync(_airQualityChartData, _airQualityBarChartOptions);
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

@@ -1,0 +1,24 @@
+﻿@page "/cineroulette"
+
+@using global::CineRoulette.Function
+@using MediatR
+@inject IMediator Mediator
+
+<div>
+    <h1>@_movie.Title</h1>
+    <img src="@_movie.ImageUrl" alt="Affiche du film" class="poster">
+    <p class="duration">Durée : @_movie.Duration</p>
+</div>
+
+<button class="button" onclick="location.reload()">Choisir un autre film</button>
+
+@code {
+    private GetRandomMovie.MovieViewModel _movie = new GetRandomMovie.MovieViewModel();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Mediator.Send(new GetRandomMovie.Request());
+        _movie = response.Movie;
+        StateHasChanged();
+    }
+}

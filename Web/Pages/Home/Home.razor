@@ -1,0 +1,100 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+<div class="bg-gray-50 text-sky-900 font-sans rounded-xl shadow full-height">
+    <header class="flex justify-between items-center p-4 md:p-6 bg-sky-200 shadow-md rounded-t-xl">
+        <div class="flex items-center gap-4">
+            <img src="/images/rook.png" alt="The Rook" class="w-10 h-10" />
+            <div>
+                <h1 class="text-2xl font-bold">Checquy</h1>
+            </div>
+        </div>
+        
+        <div class="flex gap-4">
+            <a href="https://github.com/yterraillon?tab=repositories" aria-label="GitHub" class="hover:text-sky-600">
+                <img src="/images/github.png" alt="GitHub" style="height: 28px;" />
+            </a>
+            <a href="/swagger/index.html" aria-label="API" class="hover:text-sky-600">
+                <img src="/images/api.png" alt="API" style="height: 30px;" />
+            </a>
+        </div>
+    </header>
+
+    <section class="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-sky-200 hero-section">
+        <div class="text-center md:text-left md:max-w-xl">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-blue-950">Myfanwy</h2>
+            <p class="text-lg md:text-xl text-blue-950">Home automations & Apps</p>
+        </div>
+    </section>
+    
+    <section class="p-6 md:p-12 content">
+        <h3 class="text-2xl font-semibold mb-6">Services</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <a href="/thermo" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/thermo.png" alt="Thermo" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">Thermo</h4>
+                        <p class="text-sm mt-2">Home Temperature</p>
+                    </div>
+                </div>
+            </a>
+            <a href="/turneu" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/turneu.png" alt="Thermo" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">Turneu</h4>
+                        <p class="text-sm mt-2">Tournament Manager</p>
+                    </div>
+                </div>
+            </a>
+            <a href="/en-bref" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/en-bref.png" alt="En Bref" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">En Bref</h4>
+                        <p class="text-sm mt-2">Le résumé quotidien de l'actualité</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/muscle-routine" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/muscle.png" alt="Muscle Routine" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">Muscle Routine</h4>
+                        <p class="text-sm mt-2">Routines Sportives</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="/meal-picker" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/dinner.png" alt="Meal Picker" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">Meal Picker</h4>
+                        <p class="text-sm mt-2">Les repas de la semaine</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="/cineroulette" class="block no-underline bg-white rounded-xl shadow p-6 hover:bg-sky-200 transition text-sky-900">
+                <div class="flex items-center gap-4">
+                    <img src="/images/movies.png" alt="CineRoulette" class="w-10 h-10" />
+                    <div>
+                        <h4 class="text-xl font-bold">CinéRoulette</h4>
+                        <p class="text-sm mt-2">Sélection de film</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <footer class="p-4 md:p-6 bg-sky-200 flex flex-col md:flex-row justify-between items-center text-sm text-sky-700">
+        <span>&copy; 2025 checquy</span>
+        <div class="flex gap-4 mt-2 md:mt-0">
+            <a href="https://github.com/yterraillon?tab=repositories" aria-label="GitHub" class="hover:text-sky-600">GitHub</a>
+            <a href="https://www.flaticon.com/free-icons/news-feed" title="news feed icons">Icons created by Creatype - Flaticon</a>
+        </div>
+    </footer>
+</div>

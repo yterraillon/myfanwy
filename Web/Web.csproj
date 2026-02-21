@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>ef0357b1-f5f1-43be-b0ec-936bb222fe6e</UserSecretsId>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazor.Bootstrap" />
+        <PackageReference Include="MediatR.Contracts" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Tailwind.Extensions.AspNetCore" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+      <Content Update="wwwroot\app.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\images\hero.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Shared\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Api\Api.csproj" />
+      <ProjectReference Include="..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\CineRoulette\CineRoulette.Function\CineRoulette.Function.csproj" />
+      <ProjectReference Include="..\Modules\ComicGrabber\ComicGrabber.Application\ComicGrabber.Application.csproj" />
+      <ProjectReference Include="..\Modules\ComicGrabber\ComicGrabber.Infrastructure\ComicGrabber.Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\EnBref\EnBref.Application\EnBref.Application.csproj" />
+      <ProjectReference Include="..\Modules\EnBref\EnBref.Infrastructure\EnBref.Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\MealPicker\MealPicker.Application\MealPicker.Application.csproj" />
+      <ProjectReference Include="..\Modules\MealPicker\MealPicker.Infrastructure\MealPicker.Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\MuscleRoutine\MuscleRoutine.Application\MuscleRoutine.Application.csproj" />
+      <ProjectReference Include="..\Modules\MuscleRoutine\MuscleRoutine.Infrastructure\MuscleRoutine.Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\Thermo\Thermo.Application\Thermo.Application.csproj" />
+      <ProjectReference Include="..\Modules\Thermo\Thermo.Infrastructure\Thermo.Infrastructure.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\Modules\Thermo\Thermo.Application\Thermo.Application.csproj" />
+      <ProjectReference Include="..\Modules\Thermo\Thermo.Infrastructure\Thermo.Infrastructure.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
+      <_ContentIncludedByDefault Remove="Pages\Counter\Counter.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Weather\Weather.razor" />
+    </ItemGroup>
+
+</Project>

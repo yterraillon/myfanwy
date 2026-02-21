@@ -1,0 +1,69 @@
+﻿@page "/thermo-data"
+
+@using System.Globalization
+@using MediatR
+@inject IMediator Mediator
+
+<div class="thermo-page">
+
+    @if (_measurements is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Température (C)</th>
+                <th>Qualité de l'air</th>
+                <th>Humidité</th>
+                <th>Pièce</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var measurement in _measurements.Data)
+            {
+                <tr>
+                    <td>@measurement.Id</td>
+                    <td>@measurement.Temperature</td>
+                    <td>@measurement.AirQuality</td>
+                    <td>@measurement.Humidity</td>
+                    <td>@measurement.Room</td>
+                    <td>@measurement.Date.ToString("dd/MM/yyyy HH:mm", CultureInfo.GetCultureInfo("fr-FR"))</td>
+                    <td><Button Color="ButtonColor.Secondary" Size="ButtonSize.Small" Outline="true" @onclick="() => Delete(measurement.Id)"> Supprimer </Button></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private GetAllMeasurements.MeasurementsViewModel _measurements = default!;
+    private const int IntervalInDays = 365;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _measurements = await Mediator.Send(new GetAllMeasurements.Request(IntervalInDays));
+    }
+    
+    protected async Task Delete(Guid id)
+    {
+        var request = new DeleteMeasurement.Request
+        {
+            Id = id
+        };
+        await Mediator.Send(request);
+        await UpdateUi();
+    }
+
+    private async Task UpdateUi(int days = IntervalInDays)
+    {
+        _measurements = await Mediator.Send(new GetAllMeasurements.Request(days));
+        StateHasChanged();
+    }
+}

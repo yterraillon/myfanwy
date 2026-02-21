@@ -1,0 +1,38 @@
+﻿@page "/meal-picker"
+
+@using global::MealPicker.Application.Features
+@using global::MealPicker.Application.Models
+@using MediatR
+@inject IMediator Mediator
+
+<h2>MealPicker</h2>
+
+<h3>Liste des repas</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Ingrédients</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var meal in _mealSelection.Meals)
+    {
+        <tr>
+            <td>@meal.Name</td>
+            <td>@string.Join(", ", meal.Ingredients)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private MealSelection _mealSelection = new MealSelection();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Mediator.Send(new GetMeals.Request());
+        _mealSelection = response.MealSelection;
+        StateHasChanged();
+    }
+}

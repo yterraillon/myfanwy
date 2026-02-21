@@ -1,0 +1,57 @@
+﻿@using global::Thermo.Application.Models
+@using Web.Helpers
+<div>
+    <LineChart @ref="_humidityLineChart"></LineChart>
+</div>
+
+@code {
+    [Parameter] 
+    public GetAllMeasurements.MeasurementsViewModel Measurements { get; set; } = default!;
+    
+    private LineChart _humidityLineChart = default!;
+    private LineChartOptions _humidityLineChartOptions = default!;
+    private ChartData _humidityChartData = default!;
+    
+    protected override Task OnInitializedAsync()
+    {
+        SetupHumidityChartData(Measurements);
+        return Task.CompletedTask;
+    }
+    
+    protected override Task OnParametersSetAsync()
+    {
+        SetupHumidityChartData(Measurements);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    
+    private void SetupHumidityChartData(GetAllMeasurements.MeasurementsViewModel measurements)
+    {
+        var datasets = new List<IChartDataset>();
+        var colorIndex = ChartHelper.ColorsPalette.Lightseagreen;
+        
+        foreach (var room in Rooms.AllRooms)
+        {
+            var dataset = ChartHelper.CreateLineChartDataset(room, GetHumidityFromRoom(room, measurements), colorIndex);
+            datasets.Add(dataset);
+            colorIndex++;
+        }
+        
+        _humidityChartData = new ChartData {Labels = measurements.Labels, Datasets = datasets};
+        _humidityLineChartOptions = ChartHelper.CreateDefaultLineChartOptions("Humidité", "Date", "Humidité");
+    }
+    
+    private static List<double> GetHumidityFromRoom(string room, GetAllMeasurements.MeasurementsViewModel measurements) => 
+        measurements.Humidity.Where(m => m.Room == room).Select(m => m.Humidity).ToList();
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _humidityLineChart.InitializeAsync(_humidityChartData, _humidityLineChartOptions);
+        }
+        
+        await _humidityLineChart.UpdateAsync(_humidityChartData, _humidityLineChartOptions);
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

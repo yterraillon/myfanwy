@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Modules\ComicGrabber\ComicGrabber.Application\ComicGrabber.Application.csproj" />
+      <ProjectReference Include="..\Modules\EnBref\EnBref.Application\EnBref.Application.csproj" />
+      <ProjectReference Include="..\Modules\MealPicker\MealPicker.Application\MealPicker.Application.csproj" />
+      <ProjectReference Include="..\Modules\MuscleRoutine\MuscleRoutine.Application\MuscleRoutine.Application.csproj" />
+      <ProjectReference Include="..\Modules\Thermo\Thermo.Application\Thermo.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+</Project>

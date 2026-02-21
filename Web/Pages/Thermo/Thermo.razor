@@ -1,0 +1,92 @@
+﻿@page "/thermo"
+
+@using MediatR
+@inject IMediator Mediator
+@inject NavigationManager NavigationManager
+
+<div class="thermo-page">
+    <div class="head-container">
+        <div>
+            <h2 class="title">Thermo</h2>
+            <p>Température, humidité et qualité de l'air</p>
+        </div>
+        <div>
+            <Button Color="ButtonColor.Primary" class="data-nav" @onclick="NavToData"> Data </Button>
+            <Dropdown Color="DropdownColor.Primary">
+                <DropdownToggleButton>@_currentInterval</DropdownToggleButton>
+                <DropdownMenu>
+                    <DropdownItem Type="DropdownItemType.Button" @onclick='() => UpdateUi("24 heures", 1)'>24 heures</DropdownItem>
+                    <DropdownItem Type="DropdownItemType.Button" @onclick='() => UpdateUi("Cette semaine", 7)'>Cette semaine</DropdownItem>
+                    <DropdownItem Type="DropdownItemType.Button" @onclick='() => UpdateUi("Ce mois", 30)'>Ce mois</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
+    </div>
+
+    <div class="room-container">
+        <div class="room">
+            <p>Salon</p>
+            <h3>@(_measurements.LatestMeasurementInLivingRoom?.Temperature != null ? $"{_measurements.LatestMeasurementInLivingRoom.Temperature} °C" : "N/A")</h3>
+            <p>@(_measurements.LatestMeasurementInLivingRoom?.Humidity != null ? $"{_measurements.LatestMeasurementInLivingRoom.Humidity}%" : "N/A")</p>
+            <p>@(_measurements.LatestMeasurementInLivingRoom?.AirQuality != null ? $"{_measurements.LatestMeasurementInLivingRoom.AirQuality}" : "N/A")</p>
+        </div>
+        <div class="room">
+            <p>Chambre Maël</p>
+            <h3>@(_measurements.LatestMeasurementInRoom2?.Temperature != null ? $"{_measurements.LatestMeasurementInRoom2.Temperature} °C" : "N/A")</h3>
+            <p>@(_measurements.LatestMeasurementInRoom2?.Humidity != null ? $"{_measurements.LatestMeasurementInRoom2.Humidity}%" : "N/A")</p>
+            <p>@(_measurements.LatestMeasurementInRoom2?.AirQuality != null ? $"{_measurements.LatestMeasurementInRoom2.AirQuality}" : "N/A")</p>
+        </div>
+        <div class="room">
+            <p>Chambre</p>
+            <h3>@(_measurements.LatestMeasurementInRoom?.Temperature != null ? $"{_measurements.LatestMeasurementInRoom.Temperature} °C" : "N/A")</h3>
+            <p>@(_measurements.LatestMeasurementInRoom?.Humidity != null ? $"{_measurements.LatestMeasurementInRoom.Humidity}%" : "N/A")</p>
+            <p>@(_measurements.LatestMeasurementInRoom?.AirQuality != null ? $"{_measurements.LatestMeasurementInRoom.AirQuality}" : "N/A")</p>
+        </div>
+        <div class="room">
+            <p>Extérieur</p>
+            <h3>@(_measurements.LatestMeasurementOutside?.Temperature != null ? $"{_measurements.LatestMeasurementOutside.Temperature} °C" : "N/A")</h3>
+            <p>@(_measurements.LatestMeasurementOutside?.Humidity != null ? $"{_measurements.LatestMeasurementOutside.Humidity}%" : "N/A")</p>
+            <p>@(_measurements.LatestMeasurementOutside?.AirQuality != null ? $"{_measurements.LatestMeasurementOutside.AirQuality}" : "N/A")</p>
+        </div>
+    </div>
+
+    @if (_measurements is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="chart-container">
+            <TemperatureChart Measurements=_measurements />
+        </div>
+        <div class="chart-container">
+            <HumidityChart Measurements=_measurements />
+        </div>
+        <div class="chart-container">
+            <AirQualityChart Measurements=_measurements />
+        </div>
+    }
+</div>
+
+@code {
+    private GetAllMeasurements.MeasurementsViewModel _measurements = default!;
+    
+    private string _currentInterval = "24 heures";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _measurements = await Mediator.Send(new GetAllMeasurements.Request());
+    }
+
+    private async Task UpdateUi(string text, int days = 1)
+    {
+        _currentInterval = text;
+        _measurements = await Mediator.Send(new GetAllMeasurements.Request(days));
+        StateHasChanged();
+    }
+    
+    protected void NavToData(EventArgs args)
+    {
+        NavigationManager.NavigateTo("/thermo-data");
+    }
+}

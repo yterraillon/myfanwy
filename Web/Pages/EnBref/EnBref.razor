@@ -1,0 +1,30 @@
+﻿@page "/en-bref"
+@using global::EnBref.Application.Features
+@using MediatR
+@using global::EnBref.Application.Models
+@inject IMediator Mediator
+
+<div>
+    <h2>@_recap.Title</h2>
+    @foreach (var paragraph in _recap.Sections)
+    {
+        <div>
+            <h3>@paragraph.Title</h3>
+            <span>@((MarkupString)FormatText(paragraph.Text))</span>
+        </div>
+    }
+</div>
+
+@code {
+    
+    private Recap _recap = Recap.EmptyRecap;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Mediator.Send(new DisplayLatestRecap.Request());
+        _recap = response.Recap;
+        StateHasChanged();
+    }
+    
+    private static string FormatText(string text) => text.Replace("\n", "<br />");
+}
