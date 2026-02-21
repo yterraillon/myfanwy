@@ -13,7 +13,6 @@ Checquy is a personal infrastructure project consisting of:
 
 ### Myfanwy Development
 ```bash
-cd myfanwy
 dotnet restore myfanwy.slnx
 dotnet build myfanwy.slnx
 dotnet run --project Web
@@ -22,21 +21,17 @@ dotnet test myfanwy.slnx
 
 ### Docker Services
 ```bash
-# Start a service
-cd docker-compose/<service>
-docker compose up -d
-
-# View logs
-docker compose logs -f
-
 # Build local Myfanwy image
-docker build -t myfanwy:local myfanwy/Web/
+docker build -t myfanwy:local Web/
+
+# Run locally
+docker run -p 8080:8080 myfanwy:local
 ```
 
 ### E2E Tests (Bruno CLI)
 ```bash
 npm install -g @usebruno/cli
-cd myfanwy/tests/EndToEnd/EnBref
+cd tests/EndToEnd/EnBref
 bru run --env production
 ```
 
@@ -44,14 +39,22 @@ bru run --env production
 
 ### Myfanwy Structure (Clean Architecture + CQRS)
 ```
-myfanwy/
 ├── Web/                 # Blazor SSR entry point, Tailwind CSS
 ├── Api/                 # REST controllers
 ├── BuildingBlocks/
 │   ├── Application/     # Abstractions (IRepository, INotificationService)
 │   └── Infrastructure/  # EF Core, Azure Blob, Ntfy implementations
-├── Modules/             # Domain modules (Thermo, EnBref, ComicGrabber, etc.)
+├── Modules/             # Domain modules:
+│   ├── Thermo/          #   Temperature/air quality (Eve Room via iOS Shortcut)
+│   ├── EnBref/          #   Daily news summaries (OpenAI + Azure Blob)
+│   ├── ComicGrabber/    #   Comic fetching and management
+│   ├── MealPicker/      #   Meal selection and planning
+│   ├── MuscleRoutine/   #   Workout routine tracking
+│   ├── CineRoulette/    #   Random movie selection
+│   ├── Nanny/           #   Babysitting management
+│   └── Turneu/          #   Tournament management
 ├── Database/            # SQLite files (Myfanwy.db)
+├── docs/                # Project documentation
 └── tests/               # Unit tests (xUnit) + E2E (Bruno)
 ```
 
@@ -97,9 +100,13 @@ logging:
 
 ## Documentation
 
-Detailed documentation exists in `/docs/`:
-- `architecture/overview.md` - System architecture
-- `architecture/myfanwy-architecture.md` - Application patterns
-- `deployment/docker-services.md` - All 42+ services with ports
+Detailed documentation exists in `docs/`:
+- `architecture/overview.md` - System architecture, deployment topology, CI/CD
+- `architecture/myfanwy-architecture.md` - Clean Architecture layers, CQRS patterns, module structure
 - `development/getting-started.md` - Local setup guide
-- `development/testing.md` - Testing strategy
+- `development/configuration.md` - Secrets and environment variables
+- `development/testing.md` - Unit tests (xUnit) and E2E tests (Bruno)
+
+Module-level READMEs exist for:
+- `Modules/Thermo/Readme.md`
+- `Modules/EnBref/Readme.Md`
