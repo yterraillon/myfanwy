@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using System.Reflection;
 using Application.AiAgents;
 using EnBref.Application.Contracts;
 using EnBref.Infrastructure.Databases;
@@ -51,10 +50,6 @@ public static class DependencyInjection
 
         // Database & Metrics
         services.AddSingleton<EnBrefDbContext>();
-        services.AddAutoMapper(configuration =>
-        {
-            configuration.AddMaps(Assembly.GetExecutingAssembly());
-        });
         services.AddTransient<IRecapSectionMetricRepository, RecapSectionMetricRepository>();
 
         services.AddQuartz(q =>

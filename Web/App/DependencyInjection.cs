@@ -57,9 +57,20 @@ public static class DependencyInjection
 
         services.AddSingleton<Settings>(_ => new Settings
         {
-            NtfyToken = builder.Environment.IsDevelopment() ? 
-                builder.Configuration["NtfyToken"] : 
+            NtfyToken = builder.Environment.IsDevelopment() ?
+                builder.Configuration["NtfyToken"] :
                 Environment.GetEnvironmentVariable("NtfyToken")
+        });
+
+        var autoMapperLicenseKey = builder.Environment.IsDevelopment()
+            ? builder.Configuration["AutoMapperLicenseKey"]
+            : Environment.GetEnvironmentVariable("AutoMapperLicenseKey");
+
+        services.AddAutoMapper(cfg =>
+        {
+            cfg.LicenseKey = autoMapperLicenseKey;
+            cfg.AddMaps(typeof(EnBref.Infrastructure.DependencyInjection).Assembly);
+            cfg.AddMaps(typeof(Thermo.Infrastructure.DependencyInjection).Assembly);
         });
     }
 }

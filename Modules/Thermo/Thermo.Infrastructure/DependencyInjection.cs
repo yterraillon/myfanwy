@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Application;
+﻿using Application;
 using Infrastructure.Databases;
 using Thermo.Application.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,10 +13,6 @@ public static class DependencyInjection
     public static void AddThermoInfrastructure(this IServiceCollection services)
     {
         services.AddSingleton<ThermoDbContext>();
-        services.AddAutoMapper(configuration =>
-        {
-            configuration.AddMaps(Assembly.GetExecutingAssembly());
-        });
 
         services.AddTransient<IRepository<Measurement>, Repository<Measurement, MeasurementDto>>();
         services.AddTransient<IThermoReadRepository, ThermoReadRepository>();
