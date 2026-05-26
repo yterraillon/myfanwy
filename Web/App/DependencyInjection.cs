@@ -19,7 +19,7 @@ public static class DependencyInjection
         services.AddThermoApplication();
         services.AddThermoInfrastructure();
         services.AddEnBrefApplication();
-        services.AddEnBrefInfrastructure(isUsingDocker: isDevelopment);
+        services.AddEnBrefInfrastructure();
         services.AddComicGrabberApplication();
         services.AddComicGrabberInfrastructure(isUsingDocker: isDevelopment);
         services.AddMealPickerApplication();
@@ -33,14 +33,11 @@ public static class DependencyInjection
     {
         services.AddSingleton<EnBref.Infrastructure.Settings>(_ => new EnBref.Infrastructure.Settings
         {
-            EnBrefConnectionString = builder.Environment.IsDevelopment() ? 
-                builder.Configuration["EnBrefConnectionString"] : 
-                Environment.GetEnvironmentVariable("EnBrefConnectionString"),  
-            OpenAiApiKey = builder.Environment.IsDevelopment() ? 
-                builder.Configuration["OpenAiApiKey"] : 
-                Environment.GetEnvironmentVariable("OpenAiApiKey"),
-            GithubToken = builder.Environment.IsDevelopment() ? 
-                builder.Configuration["GithubToken"] : 
+            ClaudeApiKey = builder.Environment.IsDevelopment() ?
+                builder.Configuration["ClaudeApiKey"] :
+                Environment.GetEnvironmentVariable("ClaudeApiKey"),
+            GithubToken = builder.Environment.IsDevelopment() ?
+                builder.Configuration["GithubToken"] :
                 Environment.GetEnvironmentVariable("GithubToken"),
         });
 

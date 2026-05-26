@@ -4,8 +4,8 @@ using Application.AiAgents;
 using EnBref.Application.Contracts;
 using EnBref.Infrastructure.Databases;
 using EnBref.Infrastructure.GithubCdn;
-using EnBref.Infrastructure.OpenAiAgents.RecapBuilder;
-using EnBref.Infrastructure.OpenAiAgents.RecapFormatter;
+using EnBref.Infrastructure.ClaudeAgents.RecapBuilder;
+using EnBref.Infrastructure.ClaudeAgents.RecapFormatter;
 using EnBref.Infrastructure.RssReader;
 using EnBref.Infrastructure.ScheduledJobs;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,15 +15,12 @@ namespace EnBref.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static void AddEnBrefInfrastructure(this IServiceCollection services, bool isUsingDocker = false)
+    public static void AddEnBrefInfrastructure(this IServiceCollection services)
     {
-        var openAiUrl = new Uri("https://api.openai.com/v1/chat/completions");
+        var claudeApiUrl = new Uri("https://api.anthropic.com/v1/messages");
         var githubApiUrl = new Uri("https://api.github.com");
         var githubCdnUrl = new Uri("https://yterraillon.github.io");
-        
-        // services.AddSingleton<IObjectStorageReader<Recap>, AzureBlobStorageReader>();
-        // services.AddSingleton<IObjectStorageWriter<Recap>, AzureBlobStorageWriter>();
-        
+
         services.AddHttpClient<IObjectStorageWriter<Recap>, GithubCdnPublisher>("en-bref-cdn-publisher", client =>
         {
             client.BaseAddress = githubApiUrl;
@@ -41,25 +38,15 @@ public static class DependencyInjection
         });
         
         services.AddTransient<IRssReader, RssReaderService>();
-        services.AddTransient<LocalStorageService>();
 
-        if (isUsingDocker)
-        {
-            services.AddSingleton<ILocalStorageContext, DockerLocalStorageContext>();
-        }
-        else
-        {
-            services.AddSingleton<ILocalStorageContext, LocalStorageContext>();
-        }
-        
         services.AddHttpClient<IAiAgent<IEnumerable<string>, string>, RecapBuilderAgent>("recap-builder-agent", client =>
         {
-            client.BaseAddress = openAiUrl;
+            client.BaseAddress = claudeApiUrl;
         });
-        
+
         services.AddHttpClient<IAiAgent<string, Recap>, RecapFormatterAgent>("recap-formatter-agent", client =>
         {
-            client.BaseAddress = openAiUrl;
+            client.BaseAddress = claudeApiUrl;
         });
 
         // Database & Metrics
